@@ -1,5 +1,6 @@
 import requests
 import json
+import random
 
 apiOk = 200
 
@@ -32,3 +33,12 @@ def guardarEstructuraPokemon(guardarJson):
     print(guardarJson)
 guardarEstructuraPokemon(guardarJson)
 #guardarEstructuraPokemon(consultaApiPokemon("pikachu"))
+
+def randomPokemon():
+    pokemonsId =range(1,150 + 1)
+    randomId = random.choice(pokemonsId)
+    llamarApi = consultaApiPokemon(randomId)  #obtener la información de un pokemon y tranformarlo en variable
+    guardarEstructuraPokemon(llamarApi)
+    #return seleccionRandom
+#Link dek Import random:https://www.w3schools.com/python/ref_random_choice.asp
+print(randomPokemon())
