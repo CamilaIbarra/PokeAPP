@@ -24,11 +24,13 @@ def crearEstructuraPokemon(data):
         # Puedes agregar más campos según tus necesidades
     }
 
+
 guardarJson = consultaApiPokemon(5)
 
 def guardarEstructuraPokemon(guardarJson):
-    with open("nombre_archivo.json", "w") as json_file:
-        json.dump(guardarJson, json_file, indent=2)
+    with open("Pokemones.json", "w") as json_file:
+        json.dump(guardarJson, json_file, indent=4)
     print(guardarJson)
+    
 guardarEstructuraPokemon(guardarJson)
 #guardarEstructuraPokemon(consultaApiPokemon("pikachu"))
