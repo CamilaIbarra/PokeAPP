@@ -1,27 +1,28 @@
 import requests
 import json
+import funciones_prueba
 
-inicio_pokemon = 1
+#rango de los pokemones de la primera generacion
+inicio_pokemon = 0
 fin_pokemon = 150
 
-for pokemon_id in range(inicio_pokemon, fin_pokemon + 1):
-    try:
-        response = requests.get("https://pokeapi.co/api/v2/pokemon/pokemon_id")
+# Lista para el json de cada pokemon
+#lista_pokemones = funciones_prueba.damePokemones(inicio_pokemon,fin_pokemon)["results"]
 
-        if response.status_code == 200:
-            data = response.json()
+def preset1v1(p1):
+    return funciones_prueba.usarArchivoCreado(p1)
 
-            nombre_archivo = f"{data['name']}_info.json"
-            pokemon_info = {
-            "nombre": data["name"],
-            "altura": data["height"],
-            "peso": data["weight"],
-            "tipos": [tipo["type"]["name"] for tipo in data["types"]],
-            # Puedes agregar más campos según tus necesidades
-        }
-            # Guardar los datos específicos en un archivo JSON
-        with open(nombre_archivo, 'w') as json_file:
-            json.dump(pokemon_info, json_file, indent=2)
+def preset3v3(p1, p2, p3):
+     listaPoke = [funciones_prueba.usarArchivoCreado(p1),funciones_prueba.usarArchivoCreado(p2), funciones_prueba.usarArchivoCreado(p3)]
+     return listaPoke
+ 
+def preset4v4(p1, p2, p3, p4):
+     listaPoke = [funciones_prueba.usarArchivoCreado(p1),funciones_prueba.usarArchivoCreado(p2), funciones_prueba.usarArchivoCreado(p3), funciones_prueba.usarArchivoCreado(p4)]
+     return listaPoke
+ 
+def preset6v6(p1, p2, p3, p4, p5, p6):
+    
 
-    except Exception as e:
-        pass
+     listaPoke = [funciones_prueba.usarArchivoCreado(p1),funciones_prueba.usarArchivoCreado(p2), funciones_prueba.usarArchivoCreado(p3), funciones_prueba.usarArchivoCreado(p4), 
+                  funciones_prueba.usarArchivoCreado(p5), funciones_prueba.usarArchivoCreado(p6)]
+     return listaPoke
