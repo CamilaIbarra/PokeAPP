@@ -1,4 +1,4 @@
-from funciones_prueba import *
+from services.funciones.funciones_prueba import *
 
 def userPokemon():
     pokemon_name = str(input("Ingrese el nombre del pokemon que desea usar: "))

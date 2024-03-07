@@ -1,7 +1,6 @@
 import requests
 import json
-import Pokemon
-import random
+import clases.Pokemon as Pokemon
 import os
 
 apiOk = 200
@@ -41,13 +40,24 @@ def damePokemones(inicio, fin):
             return data
 
     except Exception as e:
-        print(f"ERROD: {e}")
-        
+        print(f"ERROR: {e}")
 
-def guardarEstructuraPokemon(guardarJson, name):
-    with open("PresetPokemones/"+name+".json", "w") as json_file:
-        json.dump(guardarJson, json_file, indent=4)
-    print(guardarJson)
+def guardarEstructuraPokemon(path, guardarJson, name):
+    base_dir = 'pokemones/'+str(path)
+
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
+
+    file_name = name+".json"
+    file_path = os.path.join(base_dir, file_name)
+
+    if not os.path.exists(file_path):
+        with open(file_path, "w") as json_file:
+            json.dump(guardarJson, json_file, indent=4)
+        print(guardarJson)
+    else:
+        print(f"El pokemon "+name+" ya existe.")
+
     
 def crearPokemon(pika):
     pokemonDev=Pokemon(pika["hp"],pika["ataque"],pika["defensa"],pika["tipos"],pika["nombre"])
@@ -57,3 +67,4 @@ def usarArchivoCreado(name):
     with open("PresetPokemones/"+name+".json", "r")as file:
         poke = json.loads(file)
         return crearPokemon(crearEstructuraPokemon(poke))
+    
