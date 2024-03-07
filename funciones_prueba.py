@@ -1,6 +1,7 @@
 import requests
 import json
 import Pokemon
+import random
 
 apiOk = 200
 
@@ -11,6 +12,7 @@ def consultaApiPokemon(id):
         if response.status_code == apiOk:
             data = response.json()
             return crearEstructuraPokemon(data)
+            #return data
         else:
             return None
     except Exception as e:
