@@ -1,11 +1,13 @@
 import requests
 import json
+import Pokemon
 
 apiOk = 200
 
 def consultaApiPokemon(id):
     try:
-        response = requests.get("https://pokeapi.co/api/v2/pokemon/" + str(id))
+        nombre = str(id)
+        response = requests.get("https://pokeapi.co/api/v2/pokemon/" + nombre.lower())
         if response.status_code == apiOk:
             data = response.json()
             return crearEstructuraPokemon(data)
@@ -17,18 +19,38 @@ def consultaApiPokemon(id):
 
 def crearEstructuraPokemon(data):
     return {
-        "nombre": data["name"],
-        "altura": data["height"],
-        "peso": data["weight"],
-        "tipos": [tipo["type"]["name"] for tipo in data["types"]],
-        # Puedes agregar más campos según tus necesidades
+       "nombre": data["name"],
+            "hp": data["stats"][0]["base_stat"],       
+            "ataque": data["stats"][1]["base_stat"], 
+            "defensa": data["stats"][2]["base_stat"], 
+            "tipos": [tipo["type"]["name"] for tipo in data["types"]]
+       
     }
 
-guardarJson = consultaApiPokemon(5)
+def damePokemones(inicio, fin):
+   
+    try:
+        response = requests.get(
+            f"https://pokeapi.co/api/v2/pokemon?limit={fin}&offset={inicio}")
 
-def guardarEstructuraPokemon(guardarJson):
-    with open("nombre_archivo.json", "w") as json_file:
-        json.dump(guardarJson, json_file, indent=2)
+        if (response.status_code == 200):
+            data = response.json()
+            return data
+
+    except Exception as e:
+        print(f"ERROD: {e}")
+        
+
+def guardarEstructuraPokemon(guardarJson, name):
+    with open("PresetPokemones/"+name+".json", "w") as json_file:
+        json.dump(guardarJson, json_file, indent=4)
     print(guardarJson)
-guardarEstructuraPokemon(guardarJson)
-#guardarEstructuraPokemon(consultaApiPokemon("pikachu"))
+    
+def crearPokemon(pika):
+    pokemonDev=Pokemon(pika["hp"],pika["ataque"],pika["defensa"],pika["tipos"],pika["nombre"])
+    return pokemonDev
+    
+def usarArchivoCreado(name):
+    with open("PresetPokemones/"+name+".json", "r")as file:
+        poke = json.loads(file)
+        return crearPokemon(crearEstructuraPokemon(poke))
