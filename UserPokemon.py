@@ -1,16 +1,8 @@
-import requests
+from funciones_prueba import *
 
-def userPokemon(pokemon_name):
-    try:
-        name = pokemon_name.lower()
-        response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{name}")
-        if response.status_code == 200:
-            data = response.json()
-            pokemon = {
-                "nombre": data["name"],
-                "altura": data["height"],
-                "peso": data["weight"]
-            }
-            return pokemon
-    except Exception as e:
-        pass
+def userPokemon():
+    pokemon_name = str(input("Ingrese el nombre del pokemon que desea usar: "))
+    pokemon = consultaApiPokemon(pokemon_name)
+    dir = 'user'
+    guardarEstructuraPokemon(dir, pokemon, pokemon["nombre"])
+    

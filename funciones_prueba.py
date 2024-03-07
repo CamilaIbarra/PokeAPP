@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 apiOk = 200
 
@@ -21,14 +22,25 @@ def crearEstructuraPokemon(data):
         "altura": data["height"],
         "peso": data["weight"],
         "tipos": [tipo["type"]["name"] for tipo in data["types"]],
-        # Puedes agregar más campos según tus necesidades
     }
 
-guardarJson = consultaApiPokemon(5)
+# guardarJson = consultaApiPokemon(5)
 
-def guardarEstructuraPokemon(guardarJson):
-    with open("nombre_archivo.json", "w") as json_file:
-        json.dump(guardarJson, json_file, indent=2)
-    print(guardarJson)
-guardarEstructuraPokemon(guardarJson)
-#guardarEstructuraPokemon(consultaApiPokemon("pikachu"))
+def guardarEstructuraPokemon(path, guardarJson, name):
+    base_dir = 'pokemones/'+str(path)
+
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
+
+    file_name = name+".json"
+    file_path = os.path.join(base_dir, file_name)
+
+    if not os.path.exists(file_path):
+        with open(file_path, "w") as json_file:
+            json.dump(guardarJson, json_file, indent=4)
+        print(guardarJson)
+    else:
+        print(f"El pokemon "+name+" ya existe.")
+
+# guardarEstructuraPokemon(guardarJson, guardarJson["nombre"])
+
