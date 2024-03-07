@@ -66,7 +66,7 @@ class Pokemon:
         if self._HP < 0:
             self._HP = 0   
         
-    def atacar(self,pokemon:Pokemon):
+    def atacar(self,pokemon:'Pokemon'):
         if(self.Ataque>pokemon._Defensa):
             pokemon.recibirDanio(self.Ataque - pokemon)  #no usar _hp
         else:
