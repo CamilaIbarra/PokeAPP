@@ -12,7 +12,10 @@ def mostrar_menu_juego():
     print("\nMODO DE JUEGO:")
     print("1. Combate 1vs1")
     print("2. Combate 2vs2")
-    print("3. Combate Aleatorio")
+    print("3. Combate 3vs3")
+    print("4. Combate 4vs4")
+    print("5. Combate 6vs6")
+    print("6. Combate Aleatorio")
     print("0. Volver atrás")
 
 
@@ -31,9 +34,13 @@ def mostrar_stats_pokemon(pokemon):
 
 
 def menu_seleccionar_pokemon(pokemon):
-    print("\n¿Vas a elegir este sensual pokemon?")
-    print("1. Seleccionar")
+    print("\n¿vas a elegir este sensual Pokémon?")
+    print(f"Pokemon seleccionado: {pokemon}")
+    print("1. Continuar")
     print("0. Volver atrás")
+
+    opcion = input("Selecciona una opción: ")
+    return opcion
 
 
 def seleccionar_pokemon(pokemon):
@@ -51,13 +58,72 @@ def combate_2vs2(pokemon_1, pokemon_2):
     # Acá va el código para el combate 2vs2
 
 
+def combate_3vs3(pokemon_1, pokemon_2, pokemon_3):
+    print(
+        f"Iniciando combate 3vs3 con {pokemon_1}, {pokemon_2} y {pokemon_3}...")
+    # Acá va el código para el combate 3vs3
+
+
+def combate_4vs4(pokemon_1, pokemon_2, pokemon_3, pokemon_4):
+    print(
+        f"Iniciando combate 4vs4 con {pokemon_1}, {pokemon_2}, {pokemon_3} y {pokemon_4}...")
+    # Acá va el código para el combate 4vs4
+
+
+def combate_6vs6(pokemon_1, pokemon_2, pokemon_3, pokemon_4, pokemon_5, pokemon_6):
+    print(
+        f"Iniciando combate 6vs6 con {pokemon_1}, {pokemon_2}, {pokemon_3}, {pokemon_4}, {pokemon_5} y {pokemon_6}...")
+    # Acá va el código para el combate 6vs6
+
+
 def combate_aleatorio():
-    print("Iniciando combate aleatorio...")
-    pokemon_1 = random.choice(pokemons)
-    pokemon_2 = random.choice(pokemons)
-    print(f"Tu primer Pokémon es: {pokemon_1}")
-    print(f"Tu segundo Pokémon es: {pokemon_2}")
-    combate_2vs2(pokemon_1, pokemon_2)
+    print("\n¿Cuántos pokémon quieres seleccionar automáticamente?")
+    print("1. 1 Pokémon (1vs1)")
+    print("2. 2 Pokémons (2vs2)")
+    print("3. 3 Pokémons (3vs3)")
+    print("4. 4 Pokémons (4vs4)")
+    print("5. 6 Pokémons (6vs6)")
+    opcion = input("Selecciona una opción: ")
+
+    if opcion == "1":
+        cantidad_pokemons = 1
+    elif opcion == "2":
+        cantidad_pokemons = 2
+    elif opcion == "3":
+        cantidad_pokemons = 3
+    elif opcion == "4":
+        cantidad_pokemons = 4
+    elif opcion == "5":
+        cantidad_pokemons = 6
+    else:
+        print("Opción no válida.")
+        return
+
+    print(f"\nSeleccionando {cantidad_pokemons} pokémons automáticamente...")
+    pokemons_seleccionados = random.sample(pokemons, cantidad_pokemons)
+    for pokemon in pokemons_seleccionados:
+        print(f"Pokemon seleccionado: {pokemon}")
+
+    print("\n¿Estás seguro de estos Pokémon seleccionados?")
+    print("1. Continuar")
+    print("0. Volver atrás")
+
+    opcion = input("Selecciona una opción: ")
+    if opcion == "1":
+        if cantidad_pokemons == 1:
+            combate_1vs1(*pokemons_seleccionados)
+        elif cantidad_pokemons == 2:
+            combate_2vs2(*pokemons_seleccionados)
+        elif cantidad_pokemons == 3:
+            combate_3vs3(*pokemons_seleccionados)
+        elif cantidad_pokemons == 4:
+            combate_4vs4(*pokemons_seleccionados)
+        elif cantidad_pokemons == 6:
+            combate_6vs6(*pokemons_seleccionados)
+    elif opcion == "0":
+        return
+    else:
+        print("Opción no válida.")
 
 
 def iniciar_combate_1vs1():
@@ -133,6 +199,8 @@ def iniciar_combate_2vs2():
         else:
             print("Primer Pokémon no válido.")
 
+# Aquí debes agregar las funciones para los combates 3vs3, 4vs4 y 6vs6 de manera similar
+
 
 def menu_principal():
     while True:
@@ -166,8 +234,13 @@ def iniciar_juego():
                 continue  # Continuar al siguiente ciclo del bucle
             break  # Salir del bucle después del combate
         elif opcion == "3":
+            combate_3vs3()
+        elif opcion == "4":
+            combate_4vs4()
+        elif opcion == "5":
+            combate_6vs6()
+        elif opcion == "6":
             combate_aleatorio()
-            break
         elif opcion == "0":
             break  # Volver atrás al menú principal
         else:
@@ -185,5 +258,4 @@ pokemons_stats = {
     "Onix": {"vida": 180, "Ataque": 85, "Defensa": 292}
 }
 
-# Bucle principal
 menu_principal()
