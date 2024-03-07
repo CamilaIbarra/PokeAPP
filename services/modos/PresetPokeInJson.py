@@ -1,6 +1,4 @@
-import requests
-import json
-import funciones_prueba
+import services.funciones.funciones_prueba as funciones_prueba
 
 #rango de los pokemones de la primera generacion
 inicio_pokemon = 0

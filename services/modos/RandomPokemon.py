@@ -1,4 +1,4 @@
-from funciones_prueba import *
+from services.funciones.funciones_prueba import *
 
 def randomPokemon():
     pokemonsId =range(1,150 + 1)
